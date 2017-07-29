@@ -9,9 +9,9 @@ public class GroceryList {
     }
 
     public void printGroceryList(){
-        System.out.println("You have " + groceryList.size() + " items in your grocery list.");
+        System.out.printf("You have %d items in your grocery list.\n",groceryList.size());
         for(int i = 0; i < groceryList.size(); i++){
-            System.out.println((i+1) + ". "+ groceryList.get(i));
+            System.out.printf("%d. %s\n",(i+1),groceryList.get(i));
         }
     }
 
@@ -24,13 +24,13 @@ public class GroceryList {
 
     private void modifyGroceryItem(int position, String newItem){
         groceryList.set(position,newItem);
-        System.out.println("Grocery item " + (position+1) + " has been modified.");
+        System.out.printf("Grocery item %d has been modified.",(position+1));
     }
 
     public void removeGroceryItem(String item){
         int position = findItem(item);
         if(position >= 0) {
-            System.out.println("Removed " + item);
+            System.out.printf("Removed %s",item);
             removeGroceryItem(position);
         }
     }
