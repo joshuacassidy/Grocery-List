@@ -8,17 +8,12 @@ public class Main {
     private static Scanner scanner = new Scanner(System.in);
     private static GroceryList groceryList = new GroceryList();
 
-
-
-
     public static void main(String[] args){
         DoAction[] obj = new DoAction[] {new PrintInstructions(),new PrintGroceryList(),new AddItem(), new ModifyItem(),new RemoveItem(), new SearchForItem() };
     boolean quit = false;
         int choice = 0;
 //        printInstructions();
         while (!quit){
-            DoAction start = x(0, obj);
-            start.action(scanner, groceryList);
             System.out.println("Enter your choice: ");
             try{
                 choice = scanner.nextInt();
@@ -45,51 +40,37 @@ public class Main {
 }
 
 class DoAction{
-    public DoAction(){
-
-    }
-
     public void action(Scanner scanner, GroceryList groceryList){
-        System.out.println("Category not listed");
+        System.out.println("");
     }
 }
 
 class PrintInstructions extends DoAction{
-    public PrintInstructions() {
-        super();
 
-    }
     public void action(Scanner scanner, GroceryList groceryList){
         System.out.printf("\nPress \t 0 - To print choice options.\n\t 1 - To print the list of grocery items.\n\t 2 - To add an item to the list.\n\t 3 - To modify or add an item to the list.\n\t 4 - To remove an item from the list.\n\t 5 - To search for an item in the list.\n\t 6 - To quit the application.\n\n");
     }
+
 }
 
 class AddItem extends DoAction{
-    public AddItem() {
-        super();
 
-    }
     public void action(Scanner scanner, GroceryList groceryList){
         System.out.println("Please enter the grocery item: ");
         groceryList.addGroceryItem(scanner.nextLine());
     }
+
 }
 
 class PrintGroceryList extends DoAction{
-    public PrintGroceryList() {
-        super();
 
-    }
     public void action(Scanner scanner, GroceryList groceryList){
         groceryList.printGroceryList();
     }
 }
 
 class ModifyItem extends DoAction{
-    public ModifyItem() {
-        super();
 
-    }
     public void action(Scanner scanner, GroceryList groceryList){
         System.out.println("Please enter the grocery item: ");
         String itemNo = scanner.nextLine();
@@ -100,10 +81,7 @@ class ModifyItem extends DoAction{
 }
 
 class RemoveItem extends DoAction{
-    public RemoveItem() {
-        super();
 
-    }
     public void action(Scanner scanner, GroceryList groceryList){
         System.out.println("Please enter the grocery item: ");
         String itemNo = scanner.nextLine();
@@ -112,10 +90,7 @@ class RemoveItem extends DoAction{
 }
 
 class SearchForItem extends DoAction{
-    public SearchForItem() {
-        super();
 
-    }
     public void action(Scanner scanner, GroceryList groceryList){
         System.out.println("Item to search for: ");
         String searchItem = scanner.nextLine();
