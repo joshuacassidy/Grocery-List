@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
@@ -19,7 +20,13 @@ public class Main {
             DoAction start = x(0, obj);
             start.action(scanner, groceryList);
             System.out.println("Enter your choice: ");
-            choice = scanner.nextInt();
+            try{
+                choice = scanner.nextInt();
+            } catch (InputMismatchException e){
+                System.out.println("Quitting Shopping list.");
+                break;
+            }
+
             scanner.nextLine();
             System.out.flush();
             if(choice < obj.length){
