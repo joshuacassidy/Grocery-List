@@ -10,9 +10,10 @@ public class Main {
 
     public static void main(String[] args){
         DoAction[] obj = new DoAction[] {new PrintInstructions(),new PrintGroceryList(),new AddItem(), new ModifyItem(),new RemoveItem(), new SearchForItem() };
-    boolean quit = false;
+        boolean quit = false;
         int choice = 0;
-//        printInstructions();
+        DoAction start = x(0, obj);
+        start.action(scanner, groceryList);
         while (!quit){
             System.out.println("Enter your choice: ");
             try{
@@ -48,7 +49,7 @@ class DoAction{
 class PrintInstructions extends DoAction{
 
     public void action(Scanner scanner, GroceryList groceryList){
-        System.out.printf("\nPress \t 0 - To print choice options.\n\t 1 - To print the list of grocery items.\n\t 2 - To add an item to the list.\n\t 3 - To modify or add an item to the list.\n\t 4 - To remove an item from the list.\n\t 5 - To search for an item in the list.\n\t 6 - To quit the application.\n\n");
+        System.out.printf("Press \n\t 0 - To print choice options.\n\t 1 - To print the list of grocery items.\n\t 2 - To add an item to the list.\n\t 3 - To modify or add an item to the list.\n\t 4 - To remove an item from the list.\n\t 5 - To search for an item in the list.\n\t 6 - To quit the application.\n\n");
     }
 
 }
@@ -94,12 +95,7 @@ class SearchForItem extends DoAction{
     public void action(Scanner scanner, GroceryList groceryList){
         System.out.println("Item to search for: ");
         String searchItem = scanner.nextLine();
-        if(groceryList.onFile(searchItem)){
-            System.out.printf("Found %s in the grocery list.\n",searchItem);
-        }
-        else{
-            System.out.printf("%s is not in the list.",searchItem);
-        }
+        System.out.printf(groceryList.onFile(searchItem) ? "Found %s in the grocery list.\n" : "%s is not in the list.\n",searchItem);
     }
 }
 

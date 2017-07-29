@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class GroceryList {
 
-    private ArrayList<String> groceryList = new ArrayList<String>();
+    private ArrayList<String> groceryList = new ArrayList<>();
 
     public void  addGroceryItem(String item){
         groceryList.add(item);
@@ -29,12 +29,9 @@ public class GroceryList {
 
     public void removeGroceryItem(String item){
         int position = findItem(item);
+        System.out.printf(position >= 0 ? "Removed %s\n" : "%s not in list and could not be removed\n",item);
         if(position >= 0) {
-            System.out.printf("Removed %s\n",item);
             removeGroceryItem(position);
-        }
-        else{
-            System.out.printf("Not Removed %s",item);
         }
     }
 
@@ -49,10 +46,7 @@ public class GroceryList {
 
     public boolean onFile(String searchItem){
         int postion = findItem(searchItem);
-        if(postion >= 0){
-            return true;
-        }
-        return false;
+        return postion >= 0 ? true : false;
     }
 
     public ArrayList<String> getGroceryList() {
