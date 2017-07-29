@@ -18,18 +18,18 @@ public class GroceryList {
     public void modifyGroceryItem(String currentItem,String newItem) {
         int positon = findItem(currentItem);
         if(positon >= 0) {
-            modifyGroceryItem(positon,newItem);
+            modifyGroceryItem(currentItem,positon,newItem);
         }
     }
 
-    private void modifyGroceryItem(int position, String newItem){
+    private void modifyGroceryItem(String currentItem,int position, String newItem){
         groceryList.set(position,newItem);
-        System.out.printf("Grocery item %d has been modified.\n",(position+1));
+        System.out.printf("%s has been modified to be %s.\n",currentItem,newItem);
     }
 
     public void removeGroceryItem(String item){
         int position = findItem(item);
-        System.out.printf(position >= 0 ? "Removed %s\n" : "%s not in list and could not be removed\n",item);
+        System.out.printf(position >= 0 ? "Removed %s from the grocery list\n" : "%s not in list and could not be removed\n",item);
         if(position >= 0) {
             removeGroceryItem(position);
         }
@@ -49,9 +49,6 @@ public class GroceryList {
         return postion >= 0 ? true : false;
     }
 
-    public ArrayList<String> getGroceryList() {
-        return groceryList;
-    }
 }
 
 

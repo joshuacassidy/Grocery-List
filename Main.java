@@ -5,98 +5,88 @@ import java.util.Scanner;
 
 public class Main {
 
-    private static Scanner scanner = new Scanner(System.in);
     private static GroceryList groceryList = new GroceryList();
 
     public static void main(String[] args){
-        DoAction[] obj = new DoAction[] {new PrintInstructions(),new PrintGroceryList(),new AddItem(), new ModifyItem(),new RemoveItem(), new SearchForItem() };
+        Actions[] listOfActions = new Actions[] {new PrintInstructions(),new PrintGroceryList(),new AddItem(), new ModifyItem(),new RemoveItem(), new SearchForItem()};
+        Scanner scanner = new Scanner(System.in);
+
         boolean quit = false;
         int choice = 0;
-        DoAction start = x(0, obj);
-        start.action(scanner, groceryList);
+        Actions start = selectAction(listOfActions,0);
+        start.Action(scanner, groceryList);
         while (!quit){
-            System.out.println("Enter your choice: ");
+            System.out.println("\nPress 0 to get the list of options.\nSelect an option: ");
             try{
                 choice = scanner.nextInt();
-            } catch (InputMismatchException e){
-                System.out.println("Quitting Shopping list.");
-                break;
-            }
-
-            scanner.nextLine();
-            System.out.flush();
-            if(choice < obj.length){
-                DoAction doAction = x(choice, obj);
-                doAction.action(scanner, groceryList);
-            }
-            else{
-                System.out.println("Quitting Shopping list.");
-                break;
+                scanner.nextLine();
+                System.out.flush();
+                Actions doAction = selectAction(listOfActions,choice);
+                doAction.Action(scanner, groceryList);
+            } catch (InputMismatchException | ArrayIndexOutOfBoundsException e){
+                System.out.println(choice != 6 ? "\nError invalid input quitting Shopping list." : "\nQuitting Shopping list.");
+                quit = true;
             }
         }
     }
-    public static DoAction x(int i, DoAction[] obj){
-        return obj[i];
+    public static Actions selectAction(Actions[] action,int selectedAction){
+        return action[selectedAction];
     }
 }
 
-class DoAction{
-    public void action(Scanner scanner, GroceryList groceryList){
-        System.out.println("");
-    }
+     interface Actions {
+        void Action(Scanner scanner, GroceryList groceryList);
 }
 
-class PrintInstructions extends DoAction{
+class PrintInstructions implements Actions {
 
-    public void action(Scanner scanner, GroceryList groceryList){
+    public void Action(Scanner scanner, GroceryList groceryList){
         System.out.printf("Press \n\t 0 - To print choice options.\n\t 1 - To print the list of grocery items.\n\t 2 - To add an item to the list.\n\t 3 - To modify or add an item to the list.\n\t 4 - To remove an item from the list.\n\t 5 - To search for an item in the list.\n\t 6 - To quit the application.\n\n");
     }
 
 }
 
-class AddItem extends DoAction{
+class AddItem implements Actions {
 
-    public void action(Scanner scanner, GroceryList groceryList){
-        System.out.println("Please enter the grocery item: ");
+    public void Action(Scanner scanner, GroceryList groceryList){
+        System.out.println("Please enter the grocery item you wish to add: ");
         groceryList.addGroceryItem(scanner.nextLine());
     }
 
 }
 
-class PrintGroceryList extends DoAction{
+class PrintGroceryList implements Actions {
 
-    public void action(Scanner scanner, GroceryList groceryList){
+    public void Action(Scanner scanner, GroceryList groceryList){
         groceryList.printGroceryList();
     }
 }
 
-class ModifyItem extends DoAction{
+class ModifyItem implements Actions {
 
-    public void action(Scanner scanner, GroceryList groceryList){
-        System.out.println("Please enter the grocery item: ");
+    public void Action(Scanner scanner, GroceryList groceryList){
+        System.out.println("What is the item that you would like to modify?");
         String itemNo = scanner.nextLine();
-        System.out.print("Enter replacement item: ");
+        System.out.printf("What should %s be replaced with? ",itemNo);
         String newItem = scanner.nextLine();
         groceryList.modifyGroceryItem(itemNo,newItem);
     }
 }
 
-class RemoveItem extends DoAction{
+class RemoveItem implements Actions {
 
-    public void action(Scanner scanner, GroceryList groceryList){
-        System.out.println("Please enter the grocery item: ");
+    public void Action(Scanner scanner, GroceryList groceryList){
+        System.out.println("What is the item that you would like to remove?");
         String itemNo = scanner.nextLine();
         groceryList.removeGroceryItem(itemNo);
     }
 }
 
-class SearchForItem extends DoAction{
-
-    public void action(Scanner scanner, GroceryList groceryList){
+class SearchForItem implements Actions {
+    public void Action(Scanner scanner, GroceryList groceryList){
         System.out.println("Item to search for: ");
         String searchItem = scanner.nextLine();
         System.out.printf(groceryList.onFile(searchItem) ? "Found %s in the grocery list.\n" : "%s is not in the list.\n",searchItem);
     }
 }
-
 
