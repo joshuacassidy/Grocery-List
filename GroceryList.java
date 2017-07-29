@@ -24,14 +24,17 @@ public class GroceryList {
 
     private void modifyGroceryItem(int position, String newItem){
         groceryList.set(position,newItem);
-        System.out.printf("Grocery item %d has been modified.",(position+1));
+        System.out.printf("Grocery item %d has been modified.\n",(position+1));
     }
 
     public void removeGroceryItem(String item){
         int position = findItem(item);
         if(position >= 0) {
-            System.out.printf("Removed %s",item);
+            System.out.printf("Removed %s\n",item);
             removeGroceryItem(position);
+        }
+        else{
+            System.out.printf("Not Removed %s",item);
         }
     }
 
