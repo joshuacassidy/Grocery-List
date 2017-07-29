@@ -4,7 +4,8 @@ public class GroceryList {
 
     private ArrayList<String> groceryList = new ArrayList<>();
 
-    public void  addGroceryItem(String item){
+    public void addGroceryItem(String item){
+        System.out.printf("%s has been added to the grocery list.\n",item);
         groceryList.add(item);
     }
 

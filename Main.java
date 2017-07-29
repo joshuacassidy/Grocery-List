@@ -13,6 +13,7 @@ public class Main {
 
         boolean quit = false;
         int choice = 0;
+        System.out.print("\033[H\033[2J");
         Actions start = selectAction(listOfActions,0);
         start.Action(scanner, groceryList);
         while (!quit){
@@ -21,12 +22,14 @@ public class Main {
                 choice = scanner.nextInt();
                 scanner.nextLine();
                 System.out.flush();
+                System.out.print("\033[H\033[2J");
                 Actions doAction = selectAction(listOfActions,choice);
                 doAction.Action(scanner, groceryList);
             } catch (InputMismatchException | ArrayIndexOutOfBoundsException e){
-                System.out.println(choice != 6 ? "\nError invalid input quitting Shopping list." : "\nQuitting Shopping list.");
+                System.out.println(choice != 6 ? "Error invalid input quitting Shopping list." : "Quitting Shopping list.");
                 quit = true;
             }
+
         }
     }
     public static Actions selectAction(Actions[] action,int selectedAction){
